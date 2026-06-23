@@ -528,7 +528,7 @@ function renderChapterView(chapter) {
 
   if (heroCopy) {
     heroCopy.innerHTML = `
-      <p class="eyebrow">章节资源页 · ${chapter.partTitle}</p>
+      <p class="eyebrow">章节资源页 ? ${chapter.partTitle}</p>
       <h1>${chapter.number} ${chapter.title}</h1>
       <h2>${chapter.partTitle}</h2>
       <p class="lede">${chapter.summary}</p>
