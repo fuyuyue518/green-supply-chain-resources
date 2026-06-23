@@ -26,8 +26,8 @@ const RESOURCE_BASE_URL = "https://your-name.github.io/green-supply-chain-resour
 默认情况下，每章会跳到：
 
 ```text
-RESOURCE_BASE_URL/chapter-01/index.html
-RESOURCE_BASE_URL/chapter-02/index.html
+RESOURCE_BASE_URL/chapter.html?chapter=chapter-01
+RESOURCE_BASE_URL/chapter.html?chapter=chapter-02
 ...
 ```
 
