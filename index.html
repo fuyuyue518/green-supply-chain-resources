@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数字经济下绿色供应链管理 | 教材资源门户</title>
+    <meta
+      name="description"
+      content="按教材目录组织的章节门户站，统一跳转到 GitHub Pages 资源页，集中管理视频、音频、作业、试卷、拓展资源与主题讨论。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">教材资源门户 · GitHub Pages 统一入口</p>
+          <h1>数字经济下绿色供应链管理</h1>
+          <h2>理论与实践</h2>
+          <p class="lede">
+            按教材目录分编分章组织资源，章节页统一跳转到 GitHub Pages，集中承载视频、音频、作业、试卷、拓展阅读与主题讨论。
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#chapters">查看章节</a>
+            <a class="button button-secondary" id="resource-base-link" href="#" target="_blank" rel="noreferrer">
+              打开资源站
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <div>
+              <span class="meta-label">章数</span>
+              <strong id="chapter-count">11</strong>
+            </div>
+            <div>
+              <span class="meta-label">分编</span>
+              <strong>4</strong>
+            </div>
+            <div>
+              <span class="meta-label">资源入口</span>
+              <strong>GitHub Pages</strong>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="resource-block" aria-label="资源类型说明">
+        <article>
+          <h3>视频资源</h3>
+          <p>围绕核心概念、数字技术应用、行业案例和关键流程制作微课视频，扫码即可直达。</p>
+        </article>
+        <article>
+          <h3>音频资源</h3>
+          <p>针对章节导读、重点概念和课后复习制作音频，便于碎片化学习。</p>
+        </article>
+        <article>
+          <h3>作业与试卷</h3>
+          <p>每章配置在线作业、阶段测试和综合试卷，支持课程教学中的练测结合。</p>
+        </article>
+        <article>
+          <h3>拓展阅读</h3>
+          <p>补充政策文件、行业标准、典型企业案例和文献导读，支持研究与延展学习。</p>
+        </article>
+      </section>
+
+      <main>
+        <section class="controls" aria-label="章节筛选">
+          <label class="search">
+            <span>搜索章节或小节</span>
+            <input id="search-input" type="search" placeholder="例如：绿色物流、库存管理、风险控制" />
+          </label>
+
+          <div class="part-tabs" id="part-tabs" role="tablist" aria-label="分编切换"></div>
+        </section>
+
+        <section id="chapters" class="chapters" aria-live="polite"></section>
+      </main>
+    </div>
+  </body>
+</html>
