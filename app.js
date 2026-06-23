@@ -376,6 +376,283 @@ resourceBaseLink.textContent = "打开资源仓库";
 
 let activePartId = "all";
 
+const RESOURCE_LIBRARY = {
+  "part-1": {
+    videos: [
+      {
+        title: "公开课丨如何更好形成强大国内市场？",
+        provider: "中央纪委国家监委网站 · 公开课",
+        url: "https://v.ccdi.gov.cn/2021/03/31/VIDEAudwfXBV6tlVfVOf9yne210331.shtml",
+        note: "适合作为数字经济、国内大循环与新发展格局的导读视频。",
+      },
+      {
+        title: "智能供应链管理与数字化物流",
+        provider: "西交利物浦大学 · 公开课程",
+        url: "https://www.xjtlu.edu.cn/zh/study/departments/international-business-school-suzhou/executive-education/gongkaike",
+        note: "补充物联网、人工智能和大数据如何重塑供应链与物流。",
+      },
+    ],
+    documents: [
+      {
+        kind: "政策",
+        title: "十四五数字经济发展规划",
+        note: "数字经济总纲，适合作为第1至第3章的政策导读。",
+        url: "https://www.ndrc.gov.cn/fggz/fzzlgh/gjjzxgh/202203/t20220325_1320207.html",
+      },
+      {
+        kind: "规划",
+        title: "数字中国建设整体布局规划",
+        note: "用于串联数字基础设施、数据要素和治理体系。",
+        url: "https://www.cac.gov.cn/2023-02/27/c_1679136694986243.htm",
+      },
+      {
+        kind: "报告",
+        title: "数字中国发展报告（2022年）",
+        note: "可直接作为第1至第3章的背景材料与数据来源。",
+        url: "https://www.cac.gov.cn/2023-05/22/c_1686402318492248.htm",
+      },
+    ],
+    readings: [
+      {
+        kind: "解读",
+        title: "十四五数字经济发展规划解读",
+        note: "适合作为章节导读与课堂讨论材料。",
+        url: "https://www.ndrc.gov.cn/xxgk/jd/jd/202201/t20220121_1312601.html",
+      },
+      {
+        kind: "问答",
+        title: "数字中国建设整体布局规划答问",
+        note: "补充数字中国建设目标、路径与政策侧重点。",
+        url: "https://www.scio.gov.cn/xwfb/bwxwfb/gbwfbh/fzggw/202207/t20220716_241632.html",
+      },
+      {
+        kind: "报告",
+        title: "关于数字经济发展情况的报告",
+        note: "国家发改委口径的数字经济发展情况总览。",
+        url: "https://www.ndrc.gov.cn/fzggw/wld/hlf/lddt/202211/t20221116_1341446.html",
+      },
+    ],
+    cases: [
+      {
+        kind: "案例",
+        title: "数字中国建设思维导图",
+        note: "可直接作为前3章的导图和课后复盘材料。",
+        url: "https://www.cac.gov.cn/2023-03/06/c_1679480323270152.htm",
+      },
+      {
+        kind: "案例",
+        title: "数字经济案例库入口",
+        note: "可用于继续补充平台经济、产业数字化和数据要素案例。",
+        url: "https://www.ndrc.gov.cn/",
+      },
+    ],
+  },
+  "part-2": {
+    videos: [
+      {
+        title: "供应链风险管理与韧性",
+        provider: "西交利物浦大学 · 公开课程",
+        url: "https://www.xjtlu.edu.cn/zh/study/departments/international-business-school-suzhou/executive-education/gongkaike",
+        note: "适合作为合作伙伴选择、韧性建设与风险控制的补充视频。",
+      },
+      {
+        title: "The Green Light | 全球大物流供应链的绿色与智能化",
+        provider: "西井科技 Westwell · Bilibili",
+        url: "https://www.bilibili.com/video/BV12c411p76D/",
+        note: "用于补充绿色供应链网络设计、智能物流和全球案例。",
+      },
+    ],
+    documents: [
+      {
+        kind: "标准",
+        title: "制造企业绿色供应链管理导则",
+        note: "对应网络设计、合作伙伴和结构协同的标准底座。",
+        url: "https://std.samr.gov.cn/gb/search/gbDetailed?id=71F772D81DD0D3A7E05397BE0A0AB82A",
+      },
+      {
+        kind: "标准",
+        title: "制造企业绿色供应链管理评价规范",
+        note: "适合作为设计优化和评价指标的依据。",
+        url: "https://std.samr.gov.cn/gb/search/gbDetailed?id=B4C25880C3421CB3E05397BE0A0A92D0",
+      },
+      {
+        kind: "评价",
+        title: "绿色供应链管理企业评价要求",
+        note: "可作为绿色供应链企业识别、评价和案例选取的依据。",
+        url: "https://gxt.xinjiang.gov.cn/gxt/tzgg/202501/d3b1370b82874a618561d91f1ba536a4/files/3.%E7%BB%BF%E8%89%B2%E4%BE%9B%E5%BA%94%E9%93%BE%E7%AE%A1%E7%90%86%E4%BC%81%E4%B8%9A%E8%AF%84%E4%BB%B7%E8%A6%81%E6%B1%82.docx",
+      },
+    ],
+    readings: [
+      {
+        kind: "实施",
+        title: "制造企业绿色供应链管理实施指南",
+        note: "适合补充合作伙伴选择、流程设计和落地步骤。",
+        url: "https://std.samr.gov.cn/gb/search/gbDetailed?id=173829859D501AA5E06397BE0A0AA311",
+      },
+      {
+        kind: "平台",
+        title: "制造业数字化转型综合信息服务平台",
+        note: "用于检索数字化转型和绿色制造相关案例。",
+        url: "https://szgx.miit.gov.cn/",
+      },
+      {
+        kind: "新闻",
+        title: "绿色供应链管理企业自评价报告",
+        note: "可以直接拿来观察评价维度和企业填报结构。",
+        url: "https://gxj.wuhai.gov.cn/jxw/250995/jnyzhly/802153/2020032610471234956.pdf",
+      },
+    ],
+    cases: [
+      {
+        kind: "案例库",
+        title: "优质中小企业典型案例库",
+        note: "章节案例可从这里选取典型企业与实践路径。",
+        url: "https://zjtx.miit.gov.cn/zxqySy/classicMore?allx=2",
+      },
+      {
+        kind: "案例库",
+        title: "优质中小企业数字化/绿色化案例库",
+        note: "适合作为网络设计与伙伴协同的案例来源。",
+        url: "https://zjtx.miit.gov.cn/zxqySy/classicMore?allx=4",
+      },
+    ],
+  },
+  "part-3": {
+    videos: [
+      {
+        title: "The Green Light | 全球大物流供应链的绿色与智能化",
+        provider: "西井科技 Westwell · Bilibili",
+        url: "https://www.bilibili.com/video/BV12c411p76D/",
+        note: "很适合绿色物流章节，兼顾国际物流、智能调度与低碳运输。",
+      },
+      {
+        title: "绿色物流助力零碳未来",
+        provider: "Bilibili",
+        url: "https://www.bilibili.com/video/BV1Y24y1T7qf/",
+        note: "适合绿色仓储、绿色运输和零碳物流的课堂导入。",
+      },
+    ],
+    documents: [
+      {
+        kind: "规划",
+        title: "十四五现代物流发展规划",
+        note: "章节6可用作绿色物流与供应链协同的总政策背景。",
+        url: "https://www.mee.gov.cn/zcwj/gwywj/202212/t20221215_1008030.shtml",
+      },
+      {
+        kind: "方案",
+        title: "十四五节能减排综合工作方案",
+        note: "适合支撑绿色物流、绿色采购和绿色制造的政策导读。",
+        url: "https://www.ndrc.gov.cn/fggz/hjyzy/jnhnx/202201/t20220127_1313521_ext.html",
+      },
+      {
+        kind: "规划",
+        title: "十四五冷链物流发展规划",
+        note: "适合补充绿色运输、冷链网络与物流数字化治理。",
+        url: "https://www.mee.gov.cn/zcwj/gwywj/202112/t20211213_963894.shtml",
+      },
+    ],
+    readings: [
+      {
+        kind: "解读",
+        title: "绿色转型解读",
+        note: "补充绿色物流、资源循环和低碳运输的政策边界。",
+        url: "https://www.ndrc.gov.cn/fggz/fzzlgh/gjfzgh/202112/t20211225_1309715.html",
+      },
+      {
+        kind: "发布会",
+        title: "现代物流发展规划发布会",
+        note: "适合作为绿色物流章节的课堂材料。",
+        url: "https://www.ndrc.gov.cn/xwdt/xwfb/202212/t20221229_1344677.html?code=&state=123",
+      },
+      {
+        kind: "解读",
+        title: "现代物流高质量发展的“新蓝图”",
+        note: "可用作物流规划、数字化升级和绿色化路径的延展阅读。",
+        url: "https://xxgk.jccq.gov.cn/qzf/cqfgj/fdzdgknr/sswgh/202303/t20230322_1768840.shtml",
+      },
+    ],
+    cases: [
+      {
+        kind: "案例",
+        title: "政府绿色采购政策说明",
+        note: "可用于绿色采购章节的制度背景和案例导入。",
+        url: "https://www.mee.gov.cn/gkml/sthjbgw/qt/200910/t20091023_180041.htm",
+      },
+      {
+        kind: "案例",
+        title: "绿色采购政策实施情况",
+        note: "适合作为采购章节的拓展案例和讨论材料。",
+        url: "https://www.hainan.gov.cn/hainan/c100598/202410/b369a6a224bb4cc3b37b5e9ead1d90af.shtml?ddtab=true",
+      },
+    ],
+  },
+  "part-4": {
+    videos: [
+      {
+        title: "供应链管理专题",
+        provider: "麻省理工学院公开课 · Bilibili",
+        url: "https://www.bilibili.com/video/BV12s411H7s3/",
+        note: "适合供应链风险、外包、合同协调和韧性管理章节。",
+      },
+      {
+        title: "供应链风险管理与韧性",
+        provider: "西交利物浦大学 · 公开课程",
+        url: "https://www.xjtlu.edu.cn/zh/study/departments/international-business-school-suzhou/executive-education/gongkaike",
+        note: "可直接补充风险识别、韧性设计与业务连续性。",
+      },
+    ],
+    documents: [
+      {
+        kind: "案例库",
+        title: "海尔集团官网社会责任页面",
+        note: "可直接检索 ESG、碳中和与供应链可持续实践材料。",
+        url: "https://www.haier.com/csr/",
+      },
+      {
+        kind: "案例库",
+        title: "海尔全球 CSR 页面",
+        note: "适合作为国际化企业绿色供应链案例来源。",
+        url: "https://www.haier.com/global/csr/",
+      },
+    ],
+    readings: [
+      {
+        kind: "案例",
+        title: "比亚迪官网 ESG 提示页",
+        note: "适合作为新能源汽车行业绿色供应链案例入口。",
+        url: "https://www.byd.com/cn/dynasty-home",
+      },
+      {
+        kind: "标准",
+        title: "绿色供应链管理评价规范",
+        note: "适合作为行业案例评价和结果衡量依据。",
+        url: "https://std.samr.gov.cn/gb/search/gbDetailed?id=5DDA8B9DC3B418DEE05397BE0A0A95A7",
+      },
+      {
+        kind: "报告",
+        title: "国家数据局推动数字经济高质量发展",
+        note: "用于将风险控制、数字治理与产业链安全连接起来。",
+        url: "https://www.ndrc.gov.cn/fggz/202504/t20250415_1397207.html",
+      },
+    ],
+    cases: [
+      {
+        kind: "案例",
+        title: "海尔智家 2024 可持续发展报告",
+        note: "可用于家电行业绿色供应链与 ESG 章节。",
+        url: "https://imagegroup1.haier.com/csr/W020240621688925800758.pdf",
+      },
+      {
+        kind: "案例",
+        title: "比亚迪商用车可持续发展报告",
+        note: "可用于新能源汽车和制造业绿色供应链案例。",
+        url: "https://cv.byd.com/content/dam/commercial-vehicle-cms/report/2023%E5%B9%B4%E5%95%86%E7%94%A8%E8%BD%A6%E5%8F%AF%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B1%95%E6%8A%A5%E5%91%8A.pdf",
+      },
+    ],
+  },
+};
+
 function getChapterUrl(chapterId) {
   const baseUrl =
     window.location.protocol === "file:" || window.location.hostname === "localhost"
@@ -388,12 +665,19 @@ function findChapterById(chapterId) {
   return chapterList.find((chapter) => chapter.id === chapterId);
 }
 
+function getPartTitleById(partId) {
+  return parts.find((part) => part.id === partId)?.title || "";
+}
+
 function buildSupplementaryResources(chapter) {
   const sectionSamples = chapter.sections.slice(0, 4);
   const sectionTitles = sectionSamples.map(([, title]) => title);
+  const partResources = RESOURCE_LIBRARY[chapter.partId] || {};
 
   return {
+    videos: [...(partResources.videos || [])],
     documents: [
+      ...(partResources.documents || []),
       {
         kind: "\u8bb2\u4e49",
         title: "\u672c\u7ae0\u8bb2\u4e49\u63d0\u7eb2",
@@ -420,6 +704,7 @@ function buildSupplementaryResources(chapter) {
             },
           ],
     readings: [
+      ...(partResources.readings || []),
       {
         kind: "\u9605\u8bfb",
         title: "\u653f\u7b56\u4e0e\u6807\u51c6\u5bfc\u8bfb",
@@ -437,6 +722,7 @@ function buildSupplementaryResources(chapter) {
       },
     ],
     cases: [
+      ...(partResources.cases || []),
       {
         kind: "\u6848\u4f8b",
         title: "\u4f01\u4e1a\u843d\u5730\u6848\u4f8b",
@@ -567,6 +853,7 @@ function renderChapterView(chapter) {
         ${createSectionList(chapter.sections)}
       </div>
       <div class="chapter-resource-grid">
+        ${createResourceCards("延伸视频", supplementaryResources.videos, "is-video")}
         ${createResourceCards("文档资料", supplementaryResources.documents, "is-doc")}
         ${createResourceCards("试题练习", supplementaryResources.questions, "is-quiz")}
         ${createResourceCards("拓展阅读", supplementaryResources.readings, "is-reading")}
@@ -589,6 +876,7 @@ function renderChapterView(chapter) {
 function createChapterCard(chapter) {
   const article = document.createElement("article");
   article.className = "chapter-card";
+  const partTitle = chapter.partTitle || getPartTitleById(chapter.partId);
   article.dataset.chapter = `${chapter.number} ${chapter.title} ${chapter.sections
     .map(([, title]) => title)
     .join(" ")}`;
@@ -596,7 +884,7 @@ function createChapterCard(chapter) {
   article.innerHTML = `
     <div class="chapter-top">
       <span class="chapter-number">${chapter.number}</span>
-      <span class="chapter-number chapter-part" aria-hidden="true">${chapter.partTitle}</span>
+      <span class="chapter-number chapter-part" aria-hidden="true">${partTitle}</span>
     </div>
     <div>
       <h3>${chapter.title}</h3>
@@ -689,7 +977,11 @@ function render() {
         const matchesQuery = !query || haystack.includes(query);
         const matchesPart = activePartId === "all" || activePartId === part.id;
         return matchesQuery && matchesPart;
-      }),
+      }).map((chapter) => ({
+        ...chapter,
+        partId: part.id,
+        partTitle: part.title,
+      })),
     }))
     .filter((part) => part.chapters.length > 0);
 
