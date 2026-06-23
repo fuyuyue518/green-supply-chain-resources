@@ -7,6 +7,9 @@ function normalizeUrlBase(url) {
 }
 
 const normalizedResourceBaseUrl = normalizeUrlBase(RESOURCE_BASE_URL);
+const pageParams = new URLSearchParams(window.location.search);
+const activeChapterId = pageParams.get("chapter");
+const isChapterView = Boolean(activeChapterId);
 
 const parts = [
   {
@@ -355,20 +358,125 @@ const chaptersContainer = document.getElementById("chapters");
 const partTabs = document.getElementById("part-tabs");
 const chapterCount = document.getElementById("chapter-count");
 const resourceBaseLink = document.getElementById("resource-base-link");
+const heroCopy = document.querySelector(".hero-copy");
+const resourceBlock = document.querySelector(".resource-block");
+const controls = document.querySelector(".controls");
 
 chapterCount.textContent = String(chapterList.length);
-resourceBaseLink.href = RESOURCE_REPO_URL || "#chapters";
-resourceBaseLink.textContent = "跳到章节目录";
+resourceBaseLink.href = isChapterView ? "index.html" : RESOURCE_REPO_URL || "#chapters";
+resourceBaseLink.textContent = isChapterView
+  ? "返回门户首页"
+  : RESOURCE_REPO_URL
+    ? "打开资源仓库"
+    : "配置资源仓库地址";
 
 let activePartId = "all";
 
-resourceBaseLink.textContent = RESOURCE_REPO_URL ? "打开资源仓库" : "配置资源仓库地址";
-
 function getChapterUrl(chapterId) {
   if (!normalizedResourceBaseUrl) {
-    return `#${chapterId}`;
+    return `chapter.html?chapter=${chapterId}`;
   }
-  return `${normalizedResourceBaseUrl}${chapterId}/index.html`;
+  return `${normalizedResourceBaseUrl}chapter.html?chapter=${chapterId}`;
+}
+
+function findChapterById(chapterId) {
+  return chapterList.find((chapter) => chapter.id === chapterId);
+}
+
+function createVideoList(items) {
+  return `
+    <div class="detail-card">
+      <div class="detail-card-head">
+        <h3>本章视频推荐</h3>
+        <span>${items.length} 条</span>
+      </div>
+      <div class="detail-media-list">
+        ${items
+          .map(
+            (item) => `
+              <article class="detail-media-item">
+                <a href="${item.url}" target="_blank" rel="noreferrer">${item.title}</a>
+                <div class="detail-media-provider">${item.provider}</div>
+                <p>${item.note}</p>
+              </article>`,
+          )
+          .join("")}
+      </div>
+    </div>`;
+}
+
+function createSectionList(sections) {
+  return `
+    <div class="detail-card">
+      <div class="detail-card-head">
+        <h3>本章小节</h3>
+        <span>${sections.length} 节</span>
+      </div>
+      <ol class="detail-section-list">
+        ${sections
+          .map(
+            ([code, title]) => `
+              <li>
+                <span class="detail-section-code">${code}</span>
+                <span class="detail-section-title">${title}</span>
+              </li>`,
+          )
+          .join("")}
+      </ol>
+    </div>`;
+}
+
+function renderChapterView(chapter) {
+  document.body.classList.add("chapter-view");
+
+  if (heroCopy) {
+    heroCopy.innerHTML = `
+      <p class="eyebrow">章节资源页 · ${chapter.partTitle}</p>
+      <h1>${chapter.number} ${chapter.title}</h1>
+      <h2>${chapter.partTitle}</h2>
+      <p class="lede">${chapter.summary}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="index.html">返回门户首页</a>
+        <a class="button button-secondary" href="${RESOURCE_REPO_URL}" target="_blank" rel="noreferrer">打开资源仓库</a>
+      </div>
+      <div class="hero-meta">
+        <div>
+          <span class="meta-label">视频资源</span>
+          <strong>${chapter.videos.length}</strong>
+        </div>
+        <div>
+          <span class="meta-label">本章小节</span>
+          <strong>${chapter.sections.length}</strong>
+        </div>
+        <div>
+          <span class="meta-label">资源标签</span>
+          <strong>${chapter.tags.length}</strong>
+        </div>
+      </div>
+    `;
+  }
+
+  if (controls) controls.style.display = "none";
+  if (resourceBlock) resourceBlock.style.display = "none";
+
+  chaptersContainer.innerHTML = `
+    <section class="chapter-detail-shell">
+      <div class="chapter-detail-grid">
+        ${createVideoList(chapter.videos)}
+        ${createSectionList(chapter.sections)}
+      </div>
+      <div class="detail-card chapter-overview-card">
+        <div class="detail-card-head">
+          <h3>本章说明</h3>
+          <span>概览</span>
+        </div>
+        <p>${chapter.summary}</p>
+        <ul class="chapter-tags">
+          ${chapter.tags.map((tag) => `<li>${tag}</li>`).join("")}
+        </ul>
+      </div>
+    </section>
+  `;
 }
 
 function createChapterCard(chapter) {
@@ -499,5 +607,30 @@ function render() {
     .join("");
 }
 
-searchInput.addEventListener("input", render);
-render();
+if (isChapterView) {
+  const chapter = findChapterById(activeChapterId);
+  if (chapter) {
+    document.title = `${chapter.number} ${chapter.title} | 数字经济下绿色供应链管理`;
+    renderChapterView(chapter);
+  } else {
+    document.title = "章节不存在 | 数字经济下绿色供应链管理";
+    if (heroCopy) {
+      heroCopy.innerHTML = `
+        <p class="eyebrow">章节资源页</p>
+        <h1>未找到对应章节</h1>
+        <h2>请返回门户首页选择章节</h2>
+        <p class="lede">当前链接里的章节编号不存在，可能是链接写错了，或者章节资源页还没有创建。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="index.html">返回门户首页</a>
+          <a class="button button-secondary" href="${RESOURCE_REPO_URL}" target="_blank" rel="noreferrer">打开资源仓库</a>
+        </div>
+      `;
+    }
+    if (controls) controls.style.display = "none";
+    if (resourceBlock) resourceBlock.style.display = "none";
+    chaptersContainer.innerHTML = `<div class="empty-state">未找到该章节资源页。</div>`;
+  }
+} else {
+  searchInput.addEventListener("input", render);
+  render();
+}
