@@ -893,23 +893,9 @@ function createChapterCard(chapter) {
     <ul class="chapter-tags">
       ${chapter.tags.map((tag) => `<li>${tag}</li>`).join("")}
     </ul>
-    <div class="video-box">
-      <div class="video-box-header">
-        <span>本章视频推荐</span>
-        <span>${chapter.videos.length} 条</span>
-      </div>
-      <ul class="video-list">
-        ${chapter.videos
-          .map(
-            (video) => `
-              <li class="video-item">
-                <a class="video-link" href="${video.url}" target="_blank" rel="noreferrer">${video.title}</a>
-                <div class="video-meta">${video.provider}</div>
-                <div class="video-note">${video.note}</div>
-              </li>`,
-          )
-          .join("")}
-      </ul>
+    <div class="chapter-resource-teaser">
+      <span>章节资源页中提供视频、文档、试题、拓展阅读和案例库。</span>
+      <strong>${chapter.videos.length} 条视频已收录到章节页</strong>
     </div>
     <details class="chapter-details">
       <summary>查看本章小节</summary>

@@ -372,56 +372,24 @@ a {
   font-weight: 700;
 }
 
-.video-box {
-  padding: 14px;
+.chapter-resource-teaser {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
   border-radius: 18px;
   background: rgba(17, 74, 53, 0.04);
   border: 1px solid rgba(31, 107, 78, 0.12);
 }
 
-.video-box-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-  color: var(--accent-strong);
-  font-size: 0.92rem;
-  font-weight: 800;
-}
-
-.video-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 10px;
-}
-
-.video-item {
-  padding: 12px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid rgba(16, 20, 19, 0.08);
-}
-
-.video-link {
-  display: inline-block;
-  font-weight: 800;
-  color: var(--accent-strong);
-  margin-bottom: 6px;
-}
-
-.video-meta {
+.chapter-resource-teaser span {
   color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
-.video-note {
-  margin-top: 4px;
-  color: var(--text);
-  font-size: 0.88rem;
-  line-height: 1.6;
+.chapter-resource-teaser strong {
+  color: var(--accent-strong);
+  font-size: 0.95rem;
 }
 
 .chapter-details {
@@ -512,15 +480,12 @@ a {
 }
 
 .chapter-tags,
-.video-list,
 .section-list,
 .detail-media-list {
   min-width: 0;
 }
 
 .chapter-desc,
-.video-meta,
-.video-note,
 .detail-media-item p,
 .detail-section-title,
 .chapter-overview-card p {
