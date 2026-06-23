@@ -1,4 +1,4 @@
-const RESOURCE_REPO_URL = "https://github.com/fuyuyue518/green-supply-chain-resources";
+const RESOURCE_REPO_URL = window.__RESOURCE_REPO_URL__ || "https://github.com/fuyuyue518/green-supply-chain-resources";
 function normalizeUrlBase(url) {
   if (!url) return "";
   return url.endsWith("/") ? url : `${url}/`;
@@ -371,8 +371,8 @@ const resourceHomeUrl =
     ? `${SITE_BASE_URL}index.html`
     : `${RESOURCE_SITE_BASE_URL}index.html`;
 
-resourceBaseLink.href = isChapterView ? "index.html" : resourceHomeUrl;
-resourceBaseLink.textContent = isChapterView ? "返回门户首页" : "打开资源统一入口";
+resourceBaseLink.href = RESOURCE_REPO_URL;
+resourceBaseLink.textContent = "打开资源仓库";
 
 let activePartId = "all";
 
@@ -528,7 +528,7 @@ function renderChapterView(chapter) {
 
   if (heroCopy) {
     heroCopy.innerHTML = `
-      <p class="eyebrow">章节资源页 ? ${chapter.partTitle}</p>
+      <p class="eyebrow">章节资源页 · ${chapter.partTitle}</p>
       <h1>${chapter.number} ${chapter.title}</h1>
       <h2>${chapter.partTitle}</h2>
       <p class="lede">${chapter.summary}</p>
