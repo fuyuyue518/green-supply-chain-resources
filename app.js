@@ -1,12 +1,15 @@
-const RESOURCE_REPO_URL = "https://github.com/fuyuyue518/green-supply-chain-resources";
-const RESOURCE_BASE_URL = "https://fuyuyue518.github.io/green-supply-chain-resources/";
-
 function normalizeUrlBase(url) {
   if (!url) return "";
   return url.endsWith("/") ? url : `${url}/`;
 }
 
-const normalizedResourceBaseUrl = normalizeUrlBase(RESOURCE_BASE_URL);
+const SITE_BASE_URL = normalizeUrlBase(new URL(".", window.location.href).href);
+const RESOURCE_REPO_URL = window.__RESOURCE_REPO_URL__ || "https://github.com/fuyuyue518/green-supply-chain-resources";
+const RESOURCE_SITE_BASE_URL = normalizeUrlBase(
+  window.__RESOURCE_PAGES_BASE_URL__ ||
+    window.__RESOURCE_SITE_BASE_URL__ ||
+    "https://fuyuyue518.github.io/green-supply-chain-resources/",
+);
 const pageParams = new URLSearchParams(window.location.search);
 const activeChapterId = pageParams.get("chapter");
 const isChapterView = Boolean(activeChapterId);
@@ -363,32 +366,122 @@ const resourceBlock = document.querySelector(".resource-block");
 const controls = document.querySelector(".controls");
 
 chapterCount.textContent = String(chapterList.length);
-resourceBaseLink.href = isChapterView ? "index.html" : RESOURCE_REPO_URL || "#chapters";
-resourceBaseLink.textContent = isChapterView
-  ? "返回门户首页"
-  : RESOURCE_REPO_URL
-    ? "打开资源仓库"
-    : "配置资源仓库地址";
+const resourceHomeUrl =
+  window.location.protocol === "file:" || window.location.hostname === "localhost"
+    ? `${SITE_BASE_URL}index.html`
+    : `${RESOURCE_SITE_BASE_URL}index.html`;
+
+resourceBaseLink.href = isChapterView ? "index.html" : resourceHomeUrl;
+resourceBaseLink.textContent = isChapterView ? "返回门户首页" : "打开资源统一入口";
 
 let activePartId = "all";
 
 function getChapterUrl(chapterId) {
-  if (!normalizedResourceBaseUrl) {
-    return `chapter.html?chapter=${chapterId}`;
-  }
-  return `${normalizedResourceBaseUrl}chapter.html?chapter=${chapterId}`;
+  const baseUrl =
+    window.location.protocol === "file:" || window.location.hostname === "localhost"
+      ? SITE_BASE_URL
+      : RESOURCE_SITE_BASE_URL;
+  return `${baseUrl}chapter.html?chapter=${encodeURIComponent(chapterId)}`;
 }
 
 function findChapterById(chapterId) {
   return chapterList.find((chapter) => chapter.id === chapterId);
 }
 
+function buildSupplementaryResources(chapter) {
+  const sectionSamples = chapter.sections.slice(0, 4);
+  const sectionTitles = sectionSamples.map(([, title]) => title);
+
+  return {
+    documents: [
+      {
+        kind: "\u8bb2\u4e49",
+        title: "\u672c\u7ae0\u8bb2\u4e49\u63d0\u7eb2",
+        note: `\u4f9d\u636e ${chapter.sections.length} \u4e2a\u5c0f\u8282\u6574\u7406\u7684\u8bfe\u5802\u8bb2\u4e49\u6846\u67b6\uff0c\u53ef\u76f4\u63a5\u6269\u5c55\u4e3a PDF \u6216 Markdown\u3002`,
+      },
+      {
+        kind: "\u7d22\u5f15",
+        title: "\u77e5\u8bc6\u5730\u56fe",
+        note: `\u628a\u201c${chapter.title}\u201d\u62c6\u6210\u6982\u5ff5\u3001\u65b9\u6cd5\u548c\u5b9e\u8df5\u4e09\u5c42\u7d22\u5f15\uff0c\u4fbf\u4e8e\u540e\u7eed\u8865\u5145\u8d44\u6599\u94fe\u63a5\u3002`,
+      },
+    ],
+    questions:
+      sectionSamples.length > 0
+        ? sectionSamples.map(([code, title]) => ({
+            kind: "\u8bd5\u9898",
+            title: `${code} \u81ea\u6d4b\u9898`,
+            note: `\u56f4\u7ed5\u300c${title}\u300d\u8bbe\u8ba1 1 \u9053\u7b80\u7b54\u9898\u548c 1 \u9053\u5224\u65ad\u9898\uff0c\u9002\u5408\u653e\u5165\u9898\u5e93\u3002`,
+          }))
+        : [
+            {
+              kind: "\u8bd5\u9898",
+              title: "\u672c\u7ae0\u81ea\u6d4b\u8bd5\u9898",
+              note: "\u540e\u7eed\u53ef\u4ee5\u7ee7\u7eed\u8865\u5145\u9009\u62e9\u9898\u3001\u5224\u65ad\u9898\u3001\u7b80\u7b54\u9898\u548c\u6848\u4f8b\u5206\u6790\u9898\u3002",
+            },
+          ],
+    readings: [
+      {
+        kind: "\u9605\u8bfb",
+        title: "\u653f\u7b56\u4e0e\u6807\u51c6\u5bfc\u8bfb",
+        note: "\u8865\u5145\u56fd\u5bb6\u653f\u7b56\u3001\u884c\u4e1a\u6807\u51c6\u3001\u6846\u67b6\u6027\u6587\u4ef6\u548c\u5e38\u7528\u672f\u8bed\u8bf4\u660e\u3002",
+      },
+      {
+        kind: "\u9605\u8bfb",
+        title: "\u4ea7\u4e1a\u5b9e\u8df5\u5ef6\u4f38\u9605\u8bfb",
+        note: "\u8865\u5145\u4f01\u4e1a\u5b9e\u8df5\u3001\u516c\u5f00\u62a5\u544a\u548c\u884c\u4e1a\u6587\u7ae0\uff0c\u5e2e\u52a9\u628a\u6982\u5ff5\u8f6c\u6210\u573a\u666f\u3002",
+      },
+      {
+        kind: "\u9605\u8bfb",
+        title: "\u8bfe\u5802\u8ba8\u8bba\u63d0\u793a",
+        note: `\u53ef\u4ee5\u56f4\u7ed5 ${sectionTitles.slice(0, 2).join("\u3001")} \u7ec4\u7ec7\u5c0f\u7ec4\u8ba8\u8bba\u3002`,
+      },
+    ],
+    cases: [
+      {
+        kind: "\u6848\u4f8b",
+        title: "\u4f01\u4e1a\u843d\u5730\u6848\u4f8b",
+        note: `\u56f4\u7ed5\u300c${chapter.title}\u300d\u8865\u5145 1 \u4e2a\u884c\u4e1a\u6848\u4f8b\uff0c\u5efa\u8bae\u4f18\u5148\u4f7f\u7528\u516c\u5f00\u3001\u53ef\u8ffd\u6eaf\u6765\u6e90\u3002`,
+      },
+      {
+        kind: "\u6848\u4f8b",
+        title: "\u8bfe\u5802\u8ba8\u8bba\u6848\u4f8b",
+        note: "\u53ef\u4ee5\u6574\u7406\u6210\u201c\u95ee\u9898-\u80cc\u666f-\u505a\u6cd5-\u6210\u6548-\u53cd\u601d\u201d\u4e94\u6bb5\u5f0f\uff0c\u65b9\u4fbf\u8bfe\u5802\u4f7f\u7528\u3002",
+      },
+    ],
+  };
+}
+
+function createResourceCards(title, items, accent) {
+  return `
+    <article class="resource-panel">
+      <div class="detail-card-head">
+        <h3>${title}</h3>
+        <span>${items.length} \u6761</span>
+      </div>
+      <div class="resource-list">
+        ${items
+          .map(
+            (item) => `
+              <div class="resource-item">
+                <span class="resource-kind ${accent}">${item.kind}</span>
+                <div class="resource-copy">
+                  <strong>${item.title}</strong>
+                  <p>${item.note}</p>
+                  ${item.url ? `<a class="resource-link" href="${item.url}" target="_blank" rel="noreferrer">打开资源</a>` : ""}
+                </div>
+              </div>`,
+          )
+          .join("")}
+      </div>
+    </article>`;
+}
+
 function createVideoList(items) {
   return `
     <div class="detail-card">
       <div class="detail-card-head">
-        <h3>本章视频推荐</h3>
-        <span>${items.length} 条</span>
+        <h3>\u672c\u7ae0\u89c6\u9891\u63a8\u8350</h3>
+        <span>${items.length} \u6761</span>
       </div>
       <div class="detail-media-list">
         ${items
@@ -409,8 +502,8 @@ function createSectionList(sections) {
   return `
     <div class="detail-card">
       <div class="detail-card-head">
-        <h3>本章小节</h3>
-        <span>${sections.length} 节</span>
+        <h3>\u672c\u7ae0\u5c0f\u8282</h3>
+        <span>${sections.length} \u8282</span>
       </div>
       <ol class="detail-section-list">
         ${sections
@@ -425,13 +518,17 @@ function createSectionList(sections) {
       </ol>
     </div>`;
 }
-
 function renderChapterView(chapter) {
   document.body.classList.add("chapter-view");
+  const supplementaryResources = buildSupplementaryResources(chapter);
+  const totalSupplementaryItems = Object.values(supplementaryResources).reduce(
+    (sum, group) => sum + group.length,
+    0,
+  );
 
   if (heroCopy) {
     heroCopy.innerHTML = `
-      <p class="eyebrow">章节资源页 · ${chapter.partTitle}</p>
+      <p class="eyebrow">章节资源页 ? ${chapter.partTitle}</p>
       <h1>${chapter.number} ${chapter.title}</h1>
       <h2>${chapter.partTitle}</h2>
       <p class="lede">${chapter.summary}</p>
@@ -452,6 +549,10 @@ function renderChapterView(chapter) {
           <span class="meta-label">资源标签</span>
           <strong>${chapter.tags.length}</strong>
         </div>
+        <div>
+          <span class="meta-label">补充模块</span>
+          <strong>${Object.keys(supplementaryResources).length}</strong>
+        </div>
       </div>
     `;
   }
@@ -465,10 +566,16 @@ function renderChapterView(chapter) {
         ${createVideoList(chapter.videos)}
         ${createSectionList(chapter.sections)}
       </div>
+      <div class="chapter-resource-grid">
+        ${createResourceCards("文档资料", supplementaryResources.documents, "is-doc")}
+        ${createResourceCards("试题练习", supplementaryResources.questions, "is-quiz")}
+        ${createResourceCards("拓展阅读", supplementaryResources.readings, "is-reading")}
+        ${createResourceCards("案例库", supplementaryResources.cases, "is-case")}
+      </div>
       <div class="detail-card chapter-overview-card">
         <div class="detail-card-head">
           <h3>本章说明</h3>
-          <span>概览</span>
+          <span>${totalSupplementaryItems} 个补充条目</span>
         </div>
         <p>${chapter.summary}</p>
         <ul class="chapter-tags">
