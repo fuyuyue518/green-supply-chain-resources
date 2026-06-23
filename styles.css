@@ -299,6 +299,7 @@ a {
   background: var(--surface);
   align-self: start;
   min-width: 0;
+  overflow: hidden;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
@@ -316,6 +317,7 @@ a {
   align-items: start;
   justify-content: space-between;
   gap: 12px;
+  min-width: 0;
 }
 
 .chapter-number {
@@ -329,6 +331,13 @@ a {
   background: var(--accent-soft);
   color: var(--accent-strong);
   font-weight: 800;
+}
+
+.chapter-part {
+  max-width: 56%;
+  white-space: normal;
+  text-align: right;
+  line-height: 1.25;
 }
 
 .chapter-card h3 {
@@ -454,9 +463,10 @@ a {
 }
 
 .section-item {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(44px, auto) minmax(0, 1fr);
   gap: 12px;
+  align-items: start;
   padding: 10px 12px;
   border-radius: 12px;
   background: rgba(245, 248, 246, 0.92);
@@ -464,14 +474,13 @@ a {
 }
 
 .section-item span:first-child {
-  flex: 0 0 auto;
+  font-weight: 800;
 }
 
 .section-item span:last-child {
-  flex: 1 1 auto;
-  min-width: 0;
   color: var(--muted);
   text-align: left;
+  min-width: 0;
 }
 
 .chapter-actions {
@@ -535,7 +544,7 @@ a {
 
 .chapter-view .chapter-detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
   gap: 18px;
   align-items: start;
 }
@@ -552,6 +561,8 @@ a {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.88);
   box-shadow: var(--shadow);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .chapter-view .detail-card-head {
@@ -613,6 +624,7 @@ a {
   background: rgba(255, 255, 255, 0.88);
   box-shadow: var(--shadow);
   min-width: 0;
+  overflow: hidden;
 }
 
 .chapter-view .resource-list {
@@ -660,6 +672,10 @@ a {
   background: linear-gradient(135deg, #7b5744, #58392a);
 }
 
+.chapter-view .resource-kind.is-video {
+  background: linear-gradient(135deg, #4c6574, #243e52);
+}
+
 .chapter-view .resource-copy {
   display: grid;
   gap: 6px;
@@ -700,6 +716,7 @@ a {
   border-radius: 14px;
   background: rgba(245, 248, 246, 0.96);
   border: 1px solid rgba(16, 20, 19, 0.08);
+  min-width: 0;
 }
 
 .chapter-view .detail-section-code {
@@ -717,6 +734,13 @@ a {
   margin: 0;
   color: var(--muted);
   line-height: 1.8;
+}
+
+.chapter-view .chapter-tags li,
+.chapter-view .resource-copy p,
+.chapter-view .resource-copy strong,
+.chapter-view .detail-media-item a {
+  min-width: 0;
 }
 
 .chapter-view .detail-card,

@@ -1,10 +1,10 @@
+const RESOURCE_REPO_URL = "https://github.com/fuyuyue518/green-supply-chain-resources";
 function normalizeUrlBase(url) {
   if (!url) return "";
   return url.endsWith("/") ? url : `${url}/`;
 }
 
 const SITE_BASE_URL = normalizeUrlBase(new URL(".", window.location.href).href);
-const RESOURCE_REPO_URL = window.__RESOURCE_REPO_URL__ || "https://github.com/fuyuyue518/green-supply-chain-resources";
 const RESOURCE_SITE_BASE_URL = normalizeUrlBase(
   window.__RESOURCE_PAGES_BASE_URL__ ||
     window.__RESOURCE_SITE_BASE_URL__ ||
@@ -528,7 +528,7 @@ function renderChapterView(chapter) {
 
   if (heroCopy) {
     heroCopy.innerHTML = `
-      <p class="eyebrow">章节资源页 ? ${chapter.partTitle}</p>
+      <p class="eyebrow">章节资源页 · ${chapter.partTitle}</p>
       <h1>${chapter.number} ${chapter.title}</h1>
       <h2>${chapter.partTitle}</h2>
       <p class="lede">${chapter.summary}</p>
@@ -596,7 +596,7 @@ function createChapterCard(chapter) {
   article.innerHTML = `
     <div class="chapter-top">
       <span class="chapter-number">${chapter.number}</span>
-      <span class="chapter-number" aria-hidden="true">${chapter.partTitle}</span>
+      <span class="chapter-number chapter-part" aria-hidden="true">${chapter.partTitle}</span>
     </div>
     <div>
       <h3>${chapter.title}</h3>
