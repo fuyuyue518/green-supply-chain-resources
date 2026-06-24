@@ -811,6 +811,9 @@ function renderChapterView(chapter) {
     (sum, group) => sum + group.length,
     0,
   );
+  const featuredVideos = Array.from(
+    new Map([...(supplementaryResources.videos || []), ...(chapter.videos || [])].map((item) => [item.url, item])).values(),
+  );
 
   if (heroCopy) {
     heroCopy.innerHTML = `
@@ -825,7 +828,7 @@ function renderChapterView(chapter) {
       <div class="hero-meta">
         <div>
           <span class="meta-label">视频资源</span>
-          <strong>${chapter.videos.length}</strong>
+          <strong>${featuredVideos.length}</strong>
         </div>
         <div>
           <span class="meta-label">本章小节</span>
@@ -840,6 +843,24 @@ function renderChapterView(chapter) {
           <strong>${Object.keys(supplementaryResources).length}</strong>
         </div>
       </div>
+      <div class="chapter-quick-stats">
+        <div class="quick-stat">
+          <span>资源形态</span>
+          <strong>视频 + 文档 + 试题</strong>
+        </div>
+        <div class="quick-stat">
+          <span>拓展阅读</span>
+          <strong>${supplementaryResources.readings.length} 条</strong>
+        </div>
+        <div class="quick-stat">
+          <span>案例库</span>
+          <strong>${supplementaryResources.cases.length} 条</strong>
+        </div>
+        <div class="quick-stat">
+          <span>配套资源</span>
+          <strong>${totalSupplementaryItems} 条</strong>
+        </div>
+      </div>
     `;
   }
 
@@ -849,7 +870,7 @@ function renderChapterView(chapter) {
   chaptersContainer.innerHTML = `
     <section class="chapter-detail-shell">
       <div class="chapter-detail-grid">
-        ${createVideoList(chapter.videos)}
+        ${createVideoList(featuredVideos)}
         ${createSectionList(chapter.sections)}
       </div>
       <div class="chapter-resource-grid">
@@ -894,8 +915,14 @@ function createChapterCard(chapter) {
       ${chapter.tags.map((tag) => `<li>${tag}</li>`).join("")}
     </ul>
     <div class="chapter-resource-teaser">
-      <span>章节资源页中提供视频、文档、试题、拓展阅读和案例库。</span>
-      <strong>${chapter.videos.length} 条视频已收录到章节页</strong>
+      <span>章节资源页统一承载视频、文档、试题、拓展阅读和案例库，入口固定，后续只更新 GitHub Pages 内容。</span>
+      <div class="chapter-resource-tags">
+        <span>${chapter.videos.length} 条视频</span>
+        <span>文档</span>
+        <span>试题</span>
+        <span>拓展阅读</span>
+        <span>案例库</span>
+      </div>
     </div>
     <details class="chapter-details">
       <summary>查看本章小节</summary>

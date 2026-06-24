@@ -313,10 +313,10 @@ a {
 }
 
 .chapter-top {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
+  align-items: start;
   min-width: 0;
 }
 
@@ -334,10 +334,11 @@ a {
 }
 
 .chapter-part {
-  max-width: 56%;
+  max-width: 100%;
   white-space: normal;
   text-align: right;
   line-height: 1.25;
+  justify-self: end;
 }
 
 .chapter-card h3 {
@@ -374,10 +375,12 @@ a {
 
 .chapter-resource-teaser {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   padding: 14px 16px;
   border-radius: 18px;
-  background: rgba(17, 74, 53, 0.04);
+  background:
+    linear-gradient(180deg, rgba(17, 74, 53, 0.05), rgba(17, 74, 53, 0.025)),
+    rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(31, 107, 78, 0.12);
 }
 
@@ -387,9 +390,23 @@ a {
   line-height: 1.65;
 }
 
-.chapter-resource-teaser strong {
+.chapter-resource-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chapter-resource-tags span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(31, 107, 78, 0.08);
   color: var(--accent-strong);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .chapter-details {
@@ -563,6 +580,7 @@ a {
   border-radius: 16px;
   border: 1px solid rgba(16, 20, 19, 0.08);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(246, 249, 246, 0.88));
+  overflow: hidden;
 }
 
 .chapter-view .detail-media-item a {
@@ -684,6 +702,32 @@ a {
   min-width: 0;
 }
 
+.chapter-view .chapter-quick-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.chapter-view .quick-stat {
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 250, 247, 0.9));
+  border: 1px solid rgba(31, 107, 78, 0.1);
+}
+
+.chapter-view .quick-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.chapter-view .quick-stat strong {
+  color: var(--accent-strong);
+  font-size: 1.05rem;
+}
+
 .chapter-view .detail-section-code {
   min-width: 56px;
   color: var(--accent-strong);
@@ -731,7 +775,8 @@ a {
   .controls,
   .chapter-grid,
   .chapter-view .chapter-detail-grid,
-  .chapter-view .chapter-resource-grid {
+  .chapter-view .chapter-resource-grid,
+  .chapter-view .chapter-quick-stats {
     grid-template-columns: 1fr;
   }
 }
