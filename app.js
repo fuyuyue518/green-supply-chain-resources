@@ -8,7 +8,7 @@ const SITE_BASE_URL = normalizeUrlBase(new URL(".", window.location.href).href);
 const RESOURCE_SITE_BASE_URL = normalizeUrlBase(
   window.__RESOURCE_PAGES_BASE_URL__ ||
     window.__RESOURCE_SITE_BASE_URL__ ||
-    "https://fuyuyue518.github.io/green-supply-chain-resources/",
+    SITE_BASE_URL,
 );
 const pageParams = new URLSearchParams(window.location.search);
 const activeChapterId = pageParams.get("chapter");
@@ -391,6 +391,12 @@ const RESOURCE_LIBRARY = {
         url: "https://www.xjtlu.edu.cn/zh/study/departments/international-business-school-suzhou/executive-education/gongkaike",
         note: "补充物联网、人工智能和大数据如何重塑供应链与物流。",
       },
+      {
+        title: "中国工业新关键词：绿色供应链",
+        provider: "Bilibili · 马睦工",
+        url: "https://www.bilibili.com/video/BV1F34y1r7rX/",
+        note: "用来做绿色供应链的现实语境引入，适合课前预习。",
+      },
     ],
     documents: [
       {
@@ -456,10 +462,22 @@ const RESOURCE_LIBRARY = {
         note: "适合作为合作伙伴选择、韧性建设与风险控制的补充视频。",
       },
       {
+        title: "中国工业新关键词：绿色供应链",
+        provider: "Bilibili · 马睦工",
+        url: "https://www.bilibili.com/video/BV1F34y1r7rX/",
+        note: "用来做绿色供应链的现实语境引入，适合课前预习。",
+      },
+      {
         title: "The Green Light | 全球大物流供应链的绿色与智能化",
         provider: "西井科技 Westwell · Bilibili",
         url: "https://www.bilibili.com/video/BV12c411p76D/",
         note: "用于补充绿色供应链网络设计、智能物流和全球案例。",
+      },
+      {
+        title: "数字经济、产业数字化、数实融合与供应链升级",
+        provider: "Bilibili · 万网联聊供应链及供金",
+        url: "https://www.bilibili.com/video/BV1Gj421Z73m/",
+        note: "适合把数字经济引到供应链升级、数实融合和综合复杂度。",
       },
     ],
     documents: [
@@ -524,6 +542,12 @@ const RESOURCE_LIBRARY = {
         provider: "西井科技 Westwell · Bilibili",
         url: "https://www.bilibili.com/video/BV12c411p76D/",
         note: "很适合绿色物流章节，兼顾国际物流、智能调度与低碳运输。",
+      },
+      {
+        title: "数字经济、产业数字化、数实融合与供应链升级",
+        provider: "Bilibili · 万网联聊供应链及供金",
+        url: "https://www.bilibili.com/video/BV1Gj421Z73m/",
+        note: "适合把数字经济引到供应链升级、数实融合和综合复杂度。",
       },
       {
         title: "绿色物流助力零碳未来",
@@ -600,6 +624,12 @@ const RESOURCE_LIBRARY = {
         provider: "西交利物浦大学 · 公开课程",
         url: "https://www.xjtlu.edu.cn/zh/study/departments/international-business-school-suzhou/executive-education/gongkaike",
         note: "可直接补充风险识别、韧性设计与业务连续性。",
+      },
+      {
+        title: "中国工业新关键词：绿色供应链",
+        provider: "Bilibili · 马睦工",
+        url: "https://www.bilibili.com/video/BV1F34y1r7rX/",
+        note: "用来做绿色供应链的现实语境引入，适合课前预习。",
       },
     ],
     documents: [
